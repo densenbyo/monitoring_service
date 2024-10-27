@@ -20,7 +20,7 @@ public class UserService {
     private final UserDao userDao;
 
     public User createUser(UserRequest request) {
-        if (!userDao.existsByUsernameAndEmail(request.username(), request.email())) {
+        if (!userDao.existsByUsername(request.username()) && !userDao.existsByEmail(request.email())) {
             User user = User.builder()
                     .email(request.email())
                     .username(request.username())
@@ -30,7 +30,7 @@ public class UserService {
             }
             return userDao.save(user);
         } else {
-            String msg = String.format("Requested user with email: %s and username: %s exists.",
+            String msg = String.format("Requested user with email: %s or username: %s exists.",
                     request.email(),
                     request.username());
             log.error(msg);
