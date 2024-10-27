@@ -8,6 +8,7 @@ import org.example.monitoringservice.repository.UserDao;
 import org.example.monitoringservice.util.request.UserRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -27,7 +28,7 @@ public class UserService {
             }
             return userDao.save(user);
         } else {
-            String msg = String.format("Request user with email: %s and username: %s exists.",
+            String msg = String.format("Requested user with email: %s and username: %s exists.",
                     request.email(),
                     request.username());
             log.error(msg);
@@ -35,4 +36,22 @@ public class UserService {
         }
     }
 
+    public User findUserByAccessToken(String accessToken) {
+        if (accessToken == null || accessToken.isEmpty()) {
+            String msg = "User couldn't be found with null or empty user accessToken.";
+            log.error(msg);
+            throw new IllegalArgumentException(msg);
+        }
+
+        Optional<User> optionalUser = userDao.findByAccessToken(accessToken);
+        if (optionalUser.isEmpty()) {
+            String msg = String.format("User with passed accessToken: %s couldn't be found. " +
+                            "Rolling back monitoring endpoint deletion.",
+                    accessToken);
+            log.error(msg);
+            throw new IllegalArgumentException(msg);
+        }
+
+        return optionalUser.get();
+    }
 }

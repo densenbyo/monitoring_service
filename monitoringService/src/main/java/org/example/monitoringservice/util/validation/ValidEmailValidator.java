@@ -2,6 +2,7 @@ package org.example.monitoringservice.util.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.example.monitoringservice.util.validation.interfaces.ValidEmail;
 
 public class ValidEmailValidator implements ConstraintValidator<ValidEmail, String> {
     @Override

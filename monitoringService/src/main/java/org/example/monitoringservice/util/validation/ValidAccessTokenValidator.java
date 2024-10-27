@@ -2,6 +2,7 @@ package org.example.monitoringservice.util.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.example.monitoringservice.util.validation.interfaces.ValidAccessToken;
 
 public class ValidAccessTokenValidator implements ConstraintValidator<ValidAccessToken, String> {
     @Override

@@ -2,6 +2,7 @@ package org.example.monitoringservice.util.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.example.monitoringservice.util.validation.interfaces.ValidUsername;
 
 public class ValidUsernameValidator implements ConstraintValidator<ValidUsername, String> {
     @Override
