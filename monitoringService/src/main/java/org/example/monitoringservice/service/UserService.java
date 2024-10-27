@@ -6,8 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.monitoringservice.model.User;
 import org.example.monitoringservice.repository.UserDao;
 import org.example.monitoringservice.util.request.UserRequest;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,6 +36,25 @@ public class UserService {
             log.error(msg);
             throw new EntityExistsException(msg);
         }
+    }
+
+    public UserDetails getUserByAccessToken(String accessToken) {
+        if (accessToken == null || accessToken.isEmpty()) {
+            String msg = "User couldn't be found with null or empty user accessToken.";
+            log.error(msg);
+            throw new IllegalArgumentException(msg);
+        }
+
+        Optional<User> optionalUser = userDao.findByAccessToken(accessToken);
+        if (optionalUser.isEmpty()) {
+            String msg = String.format("User with passed accessToken: %s couldn't be found. " +
+                            "Rolling back monitoring endpoint deletion.",
+                    accessToken);
+            log.error(msg);
+            throw new IllegalArgumentException(msg);
+        }
+
+        return new org.springframework.security.core.userdetails.User(optionalUser.get().getUsername(), "", new ArrayList<>());
     }
 
     public User findUserByAccessToken(String accessToken) {

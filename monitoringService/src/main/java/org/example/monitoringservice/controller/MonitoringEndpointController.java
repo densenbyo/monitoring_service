@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/monitoring-endpoint")
+@RequestMapping("/api/v1/monitoring-endpoint")
 @RequiredArgsConstructor
 public class MonitoringEndpointController {
     private final MonitoringEndpointService monitoringEndpointService;
