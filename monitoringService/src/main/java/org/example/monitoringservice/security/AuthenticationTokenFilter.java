@@ -20,7 +20,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 @RequiredArgsConstructor
 public class AuthenticationTokenFilter extends OncePerRequestFilter {
-
     private final UserService userService;
 
     @Override

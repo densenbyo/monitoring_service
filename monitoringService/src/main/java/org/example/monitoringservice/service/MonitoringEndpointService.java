@@ -17,9 +17,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class MonitoringEndpointService {
-    private MonitoringEndpointDao monitoringEndpointDao;
-    private MonitoringResultDao monitoringResultDao;
-    private UserDao userDao;
+    private final MonitoringEndpointDao monitoringEndpointDao;
+    private final MonitoringResultDao monitoringResultDao;
+    private final UserDao userDao;
 
     public MonitoringEndpoint createMonitoringEndpoint(MonitoringEndpointRequest monitoringEndpointRequest, String accessToken) {
         log.info("Creation of monitoring endpoint started.");

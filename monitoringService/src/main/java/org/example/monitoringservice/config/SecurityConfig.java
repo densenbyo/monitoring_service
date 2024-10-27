@@ -26,9 +26,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.GET, "/api/v1/health-check").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/user").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/user/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/user/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/v1/monitoring-endpoint").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/v1/monitoring-endpoint").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/monitoring-endpoint/**").authenticated()

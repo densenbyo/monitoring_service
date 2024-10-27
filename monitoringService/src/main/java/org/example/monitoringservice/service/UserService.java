@@ -17,7 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class UserService {
-    private UserDao userDao;
+    private final UserDao userDao;
 
     public User createUser(UserRequest request) {
         if (!userDao.existsByUsernameAndEmail(request.username(), request.email())) {
