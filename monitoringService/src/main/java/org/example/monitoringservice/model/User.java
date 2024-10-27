@@ -6,11 +6,22 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.UniqueConstraint;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Entity(name = "application_user")
-@Table(name = "application_user")
+@Entity(name = "application_user")@Table(
+        name = "application_user",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"username", "email"})
+        }
+)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +34,5 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private String UUID;
+    private String accessToken;
 }
